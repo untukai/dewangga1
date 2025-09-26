@@ -66,16 +66,18 @@
         box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
       }
       
-      /* Updated: Removed fixed font-size for better responsiveness */
+      /* Updated: Removed fixed font-size and width for better responsiveness */
       .section-heading {
         font-family: "Playfair Display", serif;
         font-weight: 700;
         margin-bottom: 1rem;
         text-align: center;
         color: #112d4e;
+        font-size: clamp(2rem, 5vw, 4rem); /* Responsive font size */
+        line-height: 1.2;
       }
       .sub-heading {
-        font-size: 1.125rem;
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
         font-weight: 600;
         color: #333;
       }
@@ -925,7 +927,7 @@
       <section id="legalitas-section" class="py-16">
         <div class="container mx-auto px-4">
           <!-- Updated: Applied responsive classes from Tailwind -->
-          <h2 class="section-heading text-3xl md:text-4xl fade-in-up">Legalitas Perusahaan</h2>
+          <h2 class="section-heading text-3xl md:text-4xl">Legalitas Perusahaan</h2>
           <div class="space-y-12">
             <div
               class="max-w-xl mx-auto space-y-4 text-gray-600 mb-8 text-left"
@@ -1079,7 +1081,7 @@
       <section id="contact" class="py-16">
         <div class="container-main">
           <!-- Updated: Applied responsive classes from Tailwind -->
-          <h2 class="section-heading text-3xl md:text-4xl fade-in-up">Hubungi Kami</h2>
+          <h2 class="section-heading text-3xl md:text-4xl">Hubungi Kami</h2>
           <p
             class="text-center text-gray-600 max-w-2xl mx-auto mb-12 fade-in-up"
           >
