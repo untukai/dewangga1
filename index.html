@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dewangga Consulting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #f7f9fc;
+        color: #333;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      main {
+        flex-grow: 1;
+      }
+      .container-main {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      .text-primary {
+        color: #112d4e;
+      }
+      .bg-primary {
+        background-color: #112d4e;
+      }
+      .bg-secondary {
+        background-color: #dbe2ef;
+      }
+      .btn-main {
+        padding: 0.75rem 2rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .btn-main:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+      .card {
+        background-color: #ffffff;
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        padding: 2.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 100%;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+      }
+      .section-heading {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-align: center;
+        color: #112d4e;
+      }
+      .sub-heading {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #333;
+      }
+      @media (min-width: 768px) {
+        .responsive-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 2rem;
+        }
+      }
+
+      /* Styles for continuous scroll */
+      .scrolling-container {
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        padding: 1rem 0;
+      }
+      .scroll-content {
+        display: inline-block;
+        animation: scroll-left 40s linear infinite;
+        will-change: transform;
+      }
+      .scroll-content.paused {
+        animation-play-state: paused;
+      }
+      .scroll-content-inner {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+      }
+      .scroll-item {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        height: 80px;
+        transition: filter 0.3s ease;
+      }
+      .scroll-item:hover {
+        filter: grayscale(0%);
+      }
+      .scroll-item img {
+        height: 100%;
+        object-fit: contain;
+      }
+      @keyframes scroll-left {
+        0% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      .testimonial-slide-item {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 1s ease-in-out;
+      }
+      .testimonial-slide-item.active {
+        opacity: 1;
+        position: relative;
+      }
+
+      /* Blurry circles - Increased intensity */
+      .blurry-circle {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        opacity: 0.8;
+        z-index: -10;
+      }
+      .blurry-circle.top-left {
+        background: radial-gradient(circle, #7d96f0, transparent);
+        top: -150px;
+        left: -150px;
+        width: 400px;
+        height: 400px;
+      }
+      .blurry-circle.middle-right {
+        background: radial-gradient(circle, #c3d9f3, transparent);
+        top: 40%;
+        right: -100px;
+        width: 300px;
+        height: 300px;
+      }
+      .blurry-circle.middle-left {
+        background: radial-gradient(circle, #d0b0f2, transparent);
+        bottom: 20%;
+        left: -100px;
+        width: 350px;
+        height: 350px;
+      }
+
+      /* Modal and Pop-up styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .modal-content {
+        background-color: #fff;
+        padding: 2.5rem;
+        border-radius: 1.5rem;
+        max-width: 90%;
+        width: 500px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        transform: scale(0.9);
+        opacity: 0;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          opacity 0.3s ease-in-out;
+      }
+      .modal.show .modal-content {
+        transform: scale(1);
+        opacity: 1;
+      }
+      .modal-content h3 {
+        font-family: "Playfair Display", serif;
+      }
+      .close-button {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #ccc;
+        transition: color 0.2s;
+      }
+      .close-button:hover {
+        color: #888;
+        cursor: pointer;
+      }
+      .service-list {
+        min-height: 250px;
+      }
+      .service-list li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        transition: opacity 0.5s ease-in-out;
+      }
+      .service-list li:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.5rem;
+        width: 8px;
+        height: 8px;
+        background-color: #112d4e;
+        border-radius: 50%;
+      }
+      .pagination-controls button {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        transition: background-color 0.2s ease;
+      }
+      .pagination-controls button:hover {
+        background-color: #dbe2ef;
+      }
+
+      /* Efek Fade Saat Scroll */
+      .fade-in {
+        opacity: 0;
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .fade-in-up {
+        transform: translateY(50px);
+      }
+
+      .fade-in-left {
+        transform: translateX(-50px);
+      }
+
+      .fade-in-right {
+        transform: translateX(50px);
+      }
+
+      .fade-in.visible,
+      .fade-in-up.visible,
+      .fade-in-left.visible,
+      .fade-in-right.visible {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+
+      /* Menambahkan delay untuk efek berurutan */
+      .card-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .card-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .card-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .card-delay-4 {
+        transition-delay: 0.4s;
+      }
+      .card-delay-5 {
+        transition-delay: 0.5s;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 relative">
+    <!-- Blurry Background Circles -->
+    <div class="blurry-circle top-left"></div>
+    <div class="blurry-circle middle-right"></div>
+    <div class="blurry-circle middle-left"></div>
+
+    <!-- Navbar -->
+    <header class="bg-white fixed top-0 w-full z-50 shadow-md">
+      <div
+        class="container-main flex flex-col md:flex-row justify-between items-center py-4"
+      >
+        <div class="flex flex-col items-center mb-80 md:mb-0">
+          <img
+            src="https://i.ibb.co.com/mVLFLcJv/image.png"
+            alt="Dewangga Consulting Logo"
+            class="h-10"
+          />
+        </div>
+        <nav class="hidden md:flex space-x-8 text-gray-700 font-medium">
+          <a href="#home" class="hover:text-primary transition-colors"
+            >Beranda</a
+          >
+          <a href="#about" class="hover:text-primary transition-colors"
+            >Tentang</a
+          >
+          <a href="#services" class="hover:text-primary transition-colors"
+            >Layanan</a
+          >
+          <a
+            href="#legalitas-section"
+            class="hover:text-primary transition-colors"
+            >Legalitas</a
+          >
+          <a href="#gallery" class="hover:text-primary transition-colors"
+            >Galeri</a
+          >
+          <a href="#contact" class="hover:text-primary transition-colors"
+            >Kontak</a
+          >
+        </nav>
+        <button
+          onclick="openModal('consulting-modal')"
+          class="bg-primary text-white btn-main hover:bg-blue-900 hidden md:block"
+        >
+          Konsultasi
+        </button>
+        <button
+          class="md:hidden text-primary focus:outline-none"
+          onclick="toggleMenu()"
+        >
+          <svg
+            class="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            view-box="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden bg-white shadow-lg mx-4 mt-2 rounded-xl"
+      >
+        <nav class="flex flex-col p-4 space-y-2 text-gray-700 font-medium">
+          <a
+            href="#home"
+            class="py-2 px-4 rounded-lg hover:bg-gray-100"
+            onclick="toggleMenu()"
+            >Beranda</a
+          >
+          <a
+            href="#about"
+            class="py-2 px-4 rounded-lg hover:bg-gray-100"
+            onclick="toggleMenu()"
+            >Tentang</a
+          >
+          <a
+            href="#services"
+            class="py-2 px-4 rounded-lg hover:bg-gray-100"
+            onclick="toggleMenu()"
+            >Layanan</a
+          >
+          <a
+            href="#legalitas-section"
+            class="py-2 px-4 rounded-lg hover:bg-gray-100"
+            onclick="toggleMenu()"
+            >Legalitas</a
+          >
+          <a
+            href="#gallery"
+            class="py-2 px-4 rounded-lg hover:bg-gray-100"
+            onclick="toggleMenu()"
+            >Galeri</a
+          >
+          <a
+            href="#contact"
+            class="py-2 px-4 rounded-lg hover:bg-gray-100"
+            onclick="toggleMenu()"
+            >Kontak</a
+          >
+          <button
+            onclick="openModal('consulting-modal')"
+            class="text-left py-2 px-4 rounded-lg text-primary hover:bg-gray-100"
+          >
+            Konsultasi
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="pt-28">
+      <!-- Hero Section -->
+      <section id="home" class="relative">
+        <div
+          class="container-main py-20 flex flex-col md:flex-row items-center justify-between space-y-12 md:space-y-0"
+        >
+          <div class="md:w-1/2 text-center md:text-left fade-in-left">
+            <h1
+              class="text-4xl md:text-6xl font-extrabold leading-tight text-primary"
+            >
+              DEVELOPING <br />
+              SOLUTIONS FOR THE FUTURE
+            </h1>
+            <p
+              class="mt-4 text-lg md:text-xl text-gray-600 max-w-lg mx-auto md:mx-0"
+            >
+              Kami adalah perusahaan konsultan yang berfokus pada pengembangan
+              sumber daya manusia, continuous improvement, dan sistem manajemen.
+            </p>
+            <a
+              href="#contact"
+              class="mt-8 inline-block bg-primary text-white btn-main hover:bg-blue-900"
+            >
+              HUBUNGI KAMI
+            </a>
+          </div>
+          <div
+            class="md:w-1/2 flex justify-center md:justify-end fade-in-right"
+          >
+            <img
+              src="https://i.ibb.co.com/84gtQXQL/image.png"
+              alt="Hero Section"
+              class="rounded-3xl shadow-lg w-full h-auto"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- About Us Section -->
+      <section id="about" class="py-16 bg-white">
+        <div class="container-main fade-in-up">
+          <h2 class="section-heading">Tentang Kami</h2>
+          <div class="flex justify-center items-center">
+            <div
+              class="card flex flex-col items-center text-center p-60 sm:p-8 md:w-1000/500 lg:w-200/400"
+            >
+              <img
+                src="https://i.ibb.co.com/mVLFLcJv/image.png"
+                alt="Dewangga Consulting Logo"
+                class="w-500 mb-1"
+              />
+              <p class="text-gray-600 leading-relaxed flex-grow">
+                PT Devo Dewangga Indonesia adalah perusahaan konsultan yang
+                bergerak dalam pengembangan sumber daya manusia, continuous
+                improvement, dan sistem manajemen. Kami berkomitmen mencapai
+                tujuan dengan integritas, komitmen, dan solusi visioner untuk
+                klien dan mitra kami. Didirikan oleh para profesional
+                berpengalaman, kami percaya bahwa setiap tantangan adalah
+                peluang untuk berkembang. Misi kami adalah menjadi mitra
+                strategis yang terpercaya bagi perusahaan Anda dalam mencapai
+                keunggulan operasional dan keberlanjutan bisnis.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Our Values Section -->
+      <section id="values" class="py-16">
+        <div class="container-main text-center">
+          <h2 class="section-heading fade-in-up">Kenapa Memilih Kami?</h2>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mt-12"
+          >
+            <div
+              class="p-6 card flex flex-col items-center justify-start text-center fade-in-up card-delay-1"
+            >
+              <svg
+                class="w-12 h-12 mb-4 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <h3 class="sub-heading">Integritas</h3>
+              <p class="text-sm text-gray-500 mt-2 flex-grow">
+                Jujur, bertanggung jawab, dan konsisten.
+              </p>
+            </div>
+            <div
+              class="p-6 card flex flex-col items-center justify-start text-center fade-in-up card-delay-2"
+            >
+              <svg
+                class="w-12 h-12 mb-4 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                ></path>
+              </svg>
+              <h3 class="sub-heading">Komitmen</h3>
+              <p class="text-sm text-gray-500 mt-2 flex-grow">
+                Menepati janji dengan penuh tanggung jawab.
+              </p>
+            </div>
+            <div
+              class="p-6 card flex flex-col items-center justify-start text-center fade-in-up card-delay-3"
+            >
+              <svg
+                class="w-12 h-12 mb-4 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.549A9.954 9.954 0 013 12C3 7.582 7.03 4 12 4s9 3.582 9 8z"
+                ></path>
+              </svg>
+              <h3 class="sub-heading">Terbuka</h3>
+              <p class="text-sm text-gray-500 mt-2 flex-grow">
+                Fleksibel dan mampu beradaptasi.
+              </p>
+            </div>
+            <div
+              class="p-6 card flex flex-col items-center justify-start text-center fade-in-up card-delay-4"
+            >
+              <svg
+                class="w-12 h-12 mb-4 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19V6l12-3v14m-9 3l12-3m-12 0l-4-2m4 2a2 2 0 11-4 0 2 2 0 014 0zM12 17a2 2 0 11-4 0 2 2 0 014 0z"
+                ></path>
+              </svg>
+              <h3 class="sub-heading">Rasional</h3>
+              <p class="text-sm text-gray-500 mt-2 flex-grow">
+                Bekerja dengan perencanaan yang teratur dan logis.
+              </p>
+            </div>
+            <div
+              class="p-6 card flex flex-col items-center justify-start text-center fade-in-up card-delay-5"
+            >
+              <svg
+                class="w-12 h-12 mb-4 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9h10"
+                ></path>
+              </svg>
+              <h3 class="sub-heading">Visioner</h3>
+              <p class="text-sm text-gray-500 mt-2 flex-grow">
+                Mendorong inovasi dan berpikir jauh ke depan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services Section -->
+      <section id="services" class="py-16 bg-white">
+        <div class="container-main">
+          <h2 class="section-heading fade-in-up">Layanan Kami</h2>
+          <p
+            class="text-center text-gray-600 max-w-2xl mx-auto mb-12 fade-in-up"
+          >
+            Kami hadir untuk memberikan solusi strategis dan terpadu untuk
+            kebutuhan perusahaan Anda, berfokus pada peningkatan efisiensi, dan
+            pengembangan sumber daya manusia.
+          </p>
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div
+              class="card flex flex-col items-center justify-start text-center fade-in-up card-delay-1"
+            >
+              <svg
+                class="w-16 h-16 mb-4 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9.75 17L9 20l-1-2-1 2-1-2-1 2-1-2-1-2L9.75 17zM18 17L12 5m6 12h.75m-6 0h.75m-6 0h.75M9 20L4 8l1-1 4 4 1-1 4-4 1-1 4-4L18 17z"
+                ></path>
+              </svg>
+              <h3 class="sub-heading">Konsultansi</h3>
+              <p class="text-sm text-gray-500 mt-2 flex-grow">
+                Memberikan saran ahli untuk mengatasi tantangan bisnis.
+              </p>
+              <button
+                onclick="openModal('consulting-modal')"
+                class="mt-4 px-6 py-2 bg-primary text-white rounded-full font-medium shadow-md hover:bg-blue-900 transition-colors"
+              >
+                Lihat Detail
+              </button>
+            </div>
+            <div
+              class="card flex flex-col items-center justify-start text-center fade-in-up card-delay-2"
+            >
+              <svg
+                class="w-16 h-16 mb-4 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 12 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 11c0 3.314-2.239 6-5 6h0a5 5 0 01-5-6v-6h10v6z"
+                ></path>
+              </svg>
+              <h3 class="sub-heading">Penilaian</h3>
+              <p class="text-sm text-gray-500 mt-2 flex-grow">
+                Melakukan evaluasi menyeluruh untuk peningkatan kinerja.
+              </p>
+              <button
+                onclick="openModal('assessment-modal')"
+                class="mt-4 px-6 py-2 bg-primary text-white rounded-full font-medium shadow-md hover:bg-blue-900 transition-colors"
+              >
+                Lihat Detail
+              </button>
+            </div>
+            <div
+              class="card flex flex-col items-center justify-start text-center fade-in-up card-delay-3"
+            >
+              <svg
+                class="w-16 h-16 mb-4 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 14c1.105 0 2-0.895 2-2s-0.895-2-2-2-2 0.895-2 2s0.895 2 2 2z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 14v6m0-6V8m0 0a2 2 0 100-4 2 2 0 000 4zm0 0a2 2 0 110 4 2 2 0 010-4zm0 0a2 2 0 100 4 2 2 0 000-4z"
+                ></path>
+              </svg>
+              <h3 class="sub-heading">Pelatihan</h3>
+              <p class="text-sm text-gray-500 mt-2 flex-grow">
+                Menyelenggarakan program pelatihan untuk SDM yang lebih
+                kompeten.
+              </p>
+              <button
+                onclick="openModal('training-modal')"
+                class="mt-4 px-6 py-2 bg-primary text-white rounded-full font-medium shadow-md hover:bg-blue-900 transition-colors"
+              >
+                Lihat Detail
+              </button>
+            </div>
+            <div
+              class="card flex flex-col items-center justify-start text-center fade-in-up card-delay-4"
+            >
+              <svg
+                class="w-16 h-16 mb-4 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 10h4m-4 0v4m0-4l6 6m-6-6h-6m6 0a2 2 0 11-4 0 2 2 0 014 0z"
+                ></path>
+              </svg>
+              <h3 class="sub-heading">Business Process Improvement</h3>
+              <p class="text-sm text-gray-500 mt-2 flex-grow">
+                Meningkatkan efisiensi dan efektivitas alur kerja perusahaan.
+              </p>
+              <button
+                onclick="openModal('bpi-modal')"
+                class="mt-4 px-6 py-2 bg-primary text-white rounded-full font-medium shadow-md hover:bg-blue-900 transition-colors"
+              >
+                Lihat Detail
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Clients Section -->
+      <section id="clients" class="py-16">
+        <div class="container-main text-center fade-in-up">
+          <h2 class="section-heading">Klien Terpercaya Kami</h2>
+          <div class="scrolling-container">
+            <div class="scroll-content">
+              <div class="scroll-content-inner">
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/39hGBHfb/image.png"
+                    alt="Logo PT Armas Logistic Service"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/cSST2fvh/image.png"
+                    alt="Logo Indofood CBP"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/yctc2jms/image.png"
+                    alt="Logo PT Global Pratama Logistik"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/prPMX9bL/image.png"
+                    alt="Logo PT Sumber Prima Akurasi"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/Z6F0Nxys/image.png"
+                    alt="Logo PT Indah Logistik Kargo"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/JRNY5kYN/image.png"
+                    alt="Logo PT Triputra Group"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/n87Yt8XB/image.png"
+                    alt="Logo PT Wahanaartha Harsa Reka"
+                  />
+                </div>
+                <!-- Duplicate content for seamless scrolling -->
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/39hGBHfb/image.png"
+                    alt="Logo PT Armas Logistic Service"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/cSST2fvh/image.png"
+                    alt="Logo Indofood CBP"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/yctc2jms/image.png"
+                    alt="Logo PT Global Pratama Logistik"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/prPMX9bL/image.png"
+                    alt="Logo PT Sumber Prima Akurasi"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/Z6F0Nxys/image.png"
+                    alt="Logo PT Indah Logistik Kargo"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/JRNY5kYN/image.png"
+                    alt="Logo PT Triputra Group"
+                  />
+                </div>
+                <div class="scroll-item">
+                  <img
+                    src="https://i.ibb.co.com/n87Yt8XB/image.png"
+                    alt="Logo PT Wahanaartha Harsa Reka"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Co-Founder Section -->
+      <section id="cofounder" class="py-16 bg-white">
+        <div class="container-main">
+          <h2 class="section-heading fade-in-up">Pendiri & Co-Founder</h2>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 text-center mt-12"
+          >
+            <!-- Andir Hendrawan Card -->
+            <div
+              class="p-6 card flex flex-col items-center text-center fade-in-up card-delay-1"
+            >
+              <div
+                class="rounded-full overflow-hidden w-48 h-48 mb-4 shadow-md flex items-center justify-center"
+              >
+                <img
+                  src="https://i.ibb.co.com/Fb7Y5tTW/image.png"
+                  alt="Foto Andri Hendrawan"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3 class="font-bold text-lg text-primary">
+                Andri Hendrawan, ST., MM., MT.
+              </h3>
+              <p class="text-sm text-gray-500 flex-grow">CEO & Co-Founder</p>
+            </div>
+            <!-- Sutrisno Card -->
+            <div
+              class="p-6 card flex flex-col items-center text-center fade-in-up card-delay-2"
+            >
+              <div
+                class="rounded-full overflow-hidden w-48 h-48 mb-4 shadow-md flex items-center justify-center"
+              >
+                <img
+                  src="https://i.ibb.co.com/VYfjWrm4/image.png"
+                  alt="Foto Sutrisno"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3 class="font-bold text-lg text-primary">
+                Sutrisno, S.T., M.M.
+              </h3>
+              <p class="text-sm text-gray-500 flex-grow">Co-Founder/COO</p>
+            </div>
+            <!-- Placeholder Card 1 -->
+            <div
+              class="p-6 card flex flex-col items-center text-center fade-in-up card-delay-3"
+            >
+              <div
+                class="rounded-full overflow-hidden w-48 h-48 mb-4 shadow-md flex items-center justify-center"
+              >
+                <img
+                  src="https://placehold.co/150x150/DBE2EF/112D4E?text=Foto"
+                  alt="Foto Pendiri"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3 class="font-bold text-lg text-primary">nama</h3>
+              <p class="text-sm text-gray-500 flex-grow">Co-Founder/CEO</p>
+            </div>
+            <!-- Placeholder Card 2 -->
+            <div
+              class="p-6 card flex flex-col items-center text-center fade-in-up card-delay-4"
+            >
+              <div
+                class="rounded-full overflow-hidden w-48 h-48 mb-4 shadow-md flex items-center justify-center"
+              >
+                <img
+                  src="https://placehold.co/150x150/DBE2EF/112D4E?text=Foto"
+                  alt="Foto Co-Founder"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3 class="font-bold text-lg text-primary">nama</h3>
+              <p class="text-sm text-gray-500 flex-grow">Co-Founder/COO</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Legalitas Section -->
+      <section id="legalitas-section" class="py-16">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+            Legalitas Perusahaan
+          </h2>
+          <div class="space-y-12">
+            <div
+              class="max-w-xl mx-auto space-y-4 text-gray-600 mb-8 text-left"
+            >
+              <p>
+                <strong class="font-semibold text-primary"
+                  >Nama Perusahaan:</strong
+                >
+                PT Devo Dewangga Indonesia
+              </p>
+              <p>
+                <strong class="font-semibold text-primary">Alamat:</strong>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Puri%20Teluk%20Jambe%20Blok%20C7%20No.%2039,%20Sirnabaya,%20Telukjambe%20Timur,%20Karawang,%20Jawa%20Barat%2041361"
+                  target="_blank"
+                  class="text-blue-500 hover:underline"
+                >
+                  Puri Teluk Jambe Blok C7 No. 39, Sirnabaya, Telukjambe Timur,
+                  Karawang, Jawa Barat 41361
+                  <span class="ml-1">📍</span>
+                </a>
+              </p>
+              <p>
+                <strong class="font-semibold text-primary"
+                  >Akta Pendirian:</strong
+                >
+                No. 65, 13 Maret 2023
+              </p>
+              <p>
+                <strong class="font-semibold text-primary"
+                  >SK Kemenkumham:</strong
+                >
+                AHU-0022359.AH.01.01.2023
+              </p>
+              <p>
+                <strong class="font-semibold text-primary">NPWP:</strong>
+                40.316.034.4-408.000
+              </p>
+              <p>
+                <strong class="font-semibold text-primary">NIB:</strong>
+                2103230095959
+              </p>
+            </div>
+
+            <div class="mx-auto w-full max-w-3xl">
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Puri+Teluk+Jambe+Blok+C7+No.+39,+Sirnabaya,+Telukjambe+Timur,+Karawang,+Jawa+Barat+41361"
+                target="_blank"
+                class="block w-full h-86 rounded-xl shadow-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.ibb.co.com/zHZf1DLF/image.png"
+                  alt="Lokasi PT Devo Dewangga Indonesia"
+                  class="w-full h-full object-cover"
+                />
+              </a>
+            </div>
+
+            <div class="mx-auto w-full max-w-4xl">
+              <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <img
+                  src="https://i.ibb.co.com/0jYCjBFx/image.png"
+                  alt="Akta Pendirian"
+                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover"
+                  onclick="showImageModal(this.src)"
+                />
+                <img
+                  src="https://i.ibb.co.com/tMZK1W8p/image.png"
+                  alt="SK Kemenkumham"
+                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover"
+                  onclick="showImageModal(this.src)"
+                />
+                <img
+                  src="https://i.ibb.co.com/nMhxVdRX/image.png"
+                  alt="Legal 1"
+                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover"
+                  onclick="showImageModal(this.src)"
+                />
+                <img
+                  src="https://i.ibb.co.com/xKhNkSRP/image.png"
+                  alt="Legal 2"
+                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover"
+                  onclick="showImageModal(this.src)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Galeri Section -->
+      <section id="gallery" class="py-16 bg-white">
+        <div class="container-main">
+          <h2 class="section-heading">Galeri Dokumentasi</h2>
+          <div
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-90 gap-4 mt-8"
+          >
+            <img
+              src="https://i.ibb.co.com/234vk62k/image.png"
+              alt="Dokumentasi 1"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              onclick="showImageModal(this.src)"
+            />
+            <img
+              src="https://i.ibb.co.com/NgHwfhcT/image.png"
+              alt="Dokumentasi 2"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              onclick="showImageModal(this.src)"
+            />
+            <img
+              src="https://i.ibb.co.com/gMLY9J0J/image.png"
+              alt="Dokumentasi 3"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              onclick="showImageModal(this.src)"
+            />
+            <img
+              src="https://i.ibb.co.com/HTgJpDwy/image.png"
+              alt="Dokumentasi 4"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              onclick="showImageModal(this.src)"
+            />
+            <img
+              src="https://i.ibb.co.com/wrgVpW79/image.png"
+              alt="Dokumentasi 5"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              onclick="showImageModal(this.src)"
+            />
+            <img
+              src="https://i.ibb.co.com/zTn6qPdS/image.png"
+              alt="Dokumentasi 6"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              onclick="showImageModal(this.src)"
+            />
+            <img
+              src="https://i.ibb.co.com/PvbkLfh3/image.png"
+              alt="Dokumentasi 7"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              onclick="showImageModal(this.src)"
+            />
+            <img
+              src="https://i.ibb.co.com/xQj5YSF/image.png"
+              alt="Dokumentasi 8"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              onclick="showImageModal(this.src)"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="py-16">
+        <div class="container-main">
+          <h2 class="section-heading fade-in-up">Hubungi Kami</h2>
+          <p
+            class="text-center text-gray-600 max-w-2xl mx-auto mb-12 fade-in-up"
+          >
+            "Beritahu kami tentang kebutuhan pelatihan khusus Anda, dan tim kami
+            siap memberikan solusi terbaik."
+          </p>
+          <div class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="fade-in-up">
+              <div class="card p-6 space-y-4">
+                <p class="flex items-center space-x-2 text-gray-600">
+                  <svg
+                    class="w-6 h-6 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    ></path></svg
+                  ><span>tris.sutrisno@dewangga-consulting.co.id</span>
+                </p>
+                <p class="flex items-center space-x-2 text-gray-600">
+                  <svg
+                    class="w-6 h-6 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-11a2 2 0 01-2-2v-12z"
+                    ></path></svg
+                  ><span>08811908154</span>
+                </p>
+                <p class="flex items-center space-x-2 text-gray-600">
+                  <svg
+                    class="w-6 h-6 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path></svg
+                  ><span>Puri Teluk Jambe, Karawang</span>
+                </p>
+              </div>
+              <div class="card p-6 mt-6 fade-in-up">
+                <h3 class="sub-heading mt-6 mb-4 text-primary">
+                  Testimoni Klien
+                </h3>
+                <div id="testimonials-container" class="relative min-h-[12rem]">
+                  <!-- Testimoni will be loaded here by JavaScript -->
+                </div>
+              </div>
+            </div>
+            <div class="card p-6 fade-in-up">
+              <h3 class="text-2xl font-bold mb-4 text-primary">Form Kontak</h3>
+              <form class="space-y-4" id="contact-form">
+                <div>
+                  <label
+                    for="nama"
+                    class="block text-gray-700 font-semibold mb-1"
+                  >
+                    Nama Lengkap
+                  </label>
+                  <input
+                    type="text"
+                    id="nama"
+                    name="nama"
+                    required
+                    class="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary shadow-md"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="pesan"
+                    class="block text-gray-700 font-semibold mb-1"
+                  >
+                    Pesan
+                  </label>
+                  <textarea
+                    id="pesan"
+                    name="pesan"
+                    rows="5"
+                    required
+                    class="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary shadow-md"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="w-full bg-primary text-white btn-main hover:bg-blue-900"
+                >
+                  Kirim Pesan
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 mt-auto fade-in-up">
+      <div
+        class="container-main text-center md:flex md:justify-between md:items-center"
+      >
+        <div class="mb-6 md:mb-0">
+          <div
+            class="flex items-center justify-center md:justify-start space-x-2"
+          >
+            <img
+              src="https://i.ibb.co.com/mVLFLcJv/image.png"
+              alt="Dewangga Consulting Logo"
+              class="h-10"
+            />
+          </div>
+          <p class="mt-2 text-sm text-gray-400">
+            Developing Solutions For The Future
+          </p>
+        </div>
+        <div class="text-sm text-gray-400">
+          <p>Puri Teluk Jambe Blok C7 No. 39, Sirnabaya, Karawang</p>
+          <p class="mt-1">
+            Telepon: 08811908154 | Email:
+            tris.sutrisno@dewangga-consulting.co.id
+          </p>
+          <p class="mt-4">Hak cipta &copy; 2025 PT Devo Dewangga Indonesia</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div
+      id="image-modal"
+      class="hidden fixed inset-0 z-[100] bg-black bg-opacity-70 flex items-center justify-center p-4"
+      onclick="closeImageModal()"
+    >
+      <div
+        class="relative max-w-full max-h-full"
+        onclick="event.stopPropagation()"
+      >
+        <span
+          class="absolute top-2 right-4 text-white text-5xl font-bold cursor-pointer hover:text-gray-300 transition-colors"
+          onclick="closeImageModal()"
+          >&times;</span
+        >
+        <img
+          id="modal-image"
+          src=""
+          class="rounded-2xl max-h-[90vh] max-w-[90vw] object-contain shadow-2xl"
+        />
+      </div>
+    </div>
+
+    <!-- Modals with Dynamic Content -->
+    <div
+      id="consulting-modal"
+      class="modal"
+      onclick="closeModal(event, 'consulting-modal')"
+    >
+      <div class="modal-content relative p-8">
+        <span
+          class="close-button"
+          onclick="closeModal(event, 'consulting-modal')"
+          >&times;</span
+        >
+        <h3 class="text-2xl font-bold mb-6 text-primary text-center">
+          Daftar Layanan Konsultasi
+        </h3>
+        <ul
+          id="consulting-content"
+          class="service-list text-gray-700 space-y-2"
+        >
+          <!-- List items will be rendered here by JS -->
+        </ul>
+        <div
+          id="consulting-pagination"
+          class="pagination-controls flex justify-between items-center mt-6"
+        >
+          <!-- Pagination will be rendered here by JS -->
+        </div>
+        <div class="mt-8 text-center">
+          <button
+            onclick="closeModal(event, 'consulting-modal')"
+            class="bg-primary text-white btn-main hover:bg-blue-900"
+          >
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="assessment-modal"
+      class="modal"
+      onclick="closeModal(event, 'assessment-modal')"
+    >
+      <div class="modal-content relative p-8">
+        <span
+          class="close-button"
+          onclick="closeModal(event, 'assessment-modal')"
+          >&times;</span
+        >
+        <h3 class="text-2xl font-bold mb-6 text-primary text-center">
+          Daftar Layanan Penilaian
+        </h3>
+        <ul
+          id="assessment-content"
+          class="service-list text-gray-700 space-y-2"
+        >
+          <!-- List items will be rendered here by JS -->
+        </ul>
+        <div
+          id="assessment-pagination"
+          class="pagination-controls flex justify-between items-center mt-6"
+        >
+          <!-- Pagination will be rendered here by JS -->
+        </div>
+        <div class="mt-8 text-center">
+          <button
+            onclick="closeModal(event, 'assessment-modal')"
+            class="bg-primary text-white btn-main hover:bg-blue-900"
+          >
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="training-modal"
+      class="modal"
+      onclick="closeModal(event, 'training-modal')"
+    >
+      <div class="modal-content relative p-8">
+        <span class="close-button" onclick="closeModal(event, 'training-modal')"
+          >&times;</span
+        >
+        <h3 class="text-2xl font-bold mb-6 text-primary text-center">
+          Daftar Layanan Pelatihan
+        </h3>
+        <ul id="training-content" class="service-list text-gray-700 space-y-2">
+          <!-- List items will be rendered here by JS -->
+        </ul>
+        <div
+          id="training-pagination"
+          class="pagination-controls flex justify-between items-center mt-6"
+        >
+          <!-- Pagination will be rendered here by JS -->
+        </div>
+        <div class="mt-8 text-center">
+          <button
+            onclick="closeModal(event, 'training-modal')"
+            class="bg-primary text-white btn-main hover:bg-blue-900"
+          >
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="bpi-modal" class="modal" onclick="closeModal(event, 'bpi-modal')">
+      <div class="modal-content relative p-8">
+        <span class="close-button" onclick="closeModal(event, 'bpi-modal')"
+          >&times;</span
+        >
+        <h3 class="text-2xl font-bold mb-6 text-primary text-center">
+          Daftar Layanan Business Process Improvement
+        </h3>
+        <ul id="bpi-content" class="service-list text-gray-700 space-y-2">
+          <!-- List items will be rendered here by JS -->
+        </ul>
+        <div
+          id="bpi-pagination"
+          class="pagination-controls flex justify-between items-center mt-6"
+        >
+          <!-- Pagination will be rendered here by JS -->
+        </div>
+        <div class="mt-8 text-center">
+          <button
+            onclick="closeModal(event, 'bpi-modal')"
+            class="bg-primary text-white btn-main hover:bg-blue-900"
+          >
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Functions for the website
+      function toggleMenu() {
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileMenu.classList.toggle("hidden");
+      }
+      window.toggleMenu = toggleMenu;
+
+      function showImageModal(src) {
+        const modal = document.getElementById("image-modal");
+        const modalImg = document.getElementById("modal-image");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        modalImg.src = src;
+      }
+      window.showImageModal = showImageModal;
+
+      function closeImageModal() {
+        const modal = document.getElementById("image-modal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+      window.closeImageModal = closeImageModal;
+
+      // Data for the modals
+      const serviceData = {
+        consulting: [
+          "Business Plan Development",
+          "People Management Solutions",
+          "Change Management",
+          "Leadership of Management Improvement",
+          "Suggestion System (SS)",
+          "Lean Manufacturing",
+          "Value Stream Mapping",
+          "Supply Chain Operations Reference (SCOR) Model",
+          "Procurement Management – Best Practice",
+          "Logistic & Supply Chain Management",
+          "Warehouse Management System",
+          "PPIC & Operation Management",
+          "Distribution Management",
+        ],
+        assessment: [
+          "Continuous Improvement Group",
+          "Management by Olympic System",
+          "Cycle Time Reduction",
+          "ISO Internal Controller (Audit)",
+          "Best Employee Assessment",
+          "Internal Audit Based on ISO 19011:2018",
+          "Document Control Management",
+          "Risk Management System ISO 31000",
+          "Tools Risk Management (HIARO, JSA, FMEA, FTA)",
+          "Business Process Improvement (Best Practice)",
+          "Overall Equipment Effectiveness (OEE)",
+          "Job Evaluation & Struktur Upah",
+          "Workload Analysis",
+          "Performance Management System & KPI",
+          "Analisis Jabatan",
+          "Recruitment Assessment",
+          "Organizational Structure Evaluation",
+        ],
+        training: [
+          "Kaizen Standardized Work (SW)",
+          "Total Productive Maintenance (TPM)",
+          "Material Information Flow Chart (MIFC)",
+          "Practical Problem Solving (PPS)",
+          "QC Tools: 7 Tools & New 7 Management Tools",
+          "Shop Floor Management",
+          "Quality Control Circle (QCC/GKM)",
+          "Jishuken",
+          "Practical Project Management (PPM)",
+          "Small Group Activity (SGA) Safety",
+          "Stop Six",
+          "Introduction to Human Capital Management Process",
+          "MS Excel (Basic, Intermediate, Advance)",
+          "Statistik Deskriptif & Inferensial",
+          "Manajemen Keuangan Karyawan",
+        ],
+        bpi: [
+          "Training Soft Skill & Technical",
+          "Persiapan Pensiun",
+          "Pembuatan Kamus Kompetensi Umum & Teknis",
+          "Corporate Value & Culture",
+          "Management Trainee & Vocation Programme",
+          "Digitalisation HR",
+          "Knowledge Management",
+          "HR Administration",
+          "Entrepreneurship",
+        ],
+      };
+
+      const modalStates = {
+        consulting: { currentPage: 0, totalPages: 0, items: [] },
+        assessment: { currentPage: 0, totalPages: 0, items: [] },
+        training: { currentPage: 0, totalPages: 0, items: [] },
+        bpi: { currentPage: 0, totalPages: 0, items: [] },
+      };
+
+      const ITEMS_PER_PAGE = 10;
+
+      function renderModalContent(modalId) {
+        const serviceCategory = modalId.replace("-modal", "");
+        const modalContentEl = document.getElementById(
+          `${serviceCategory}-content`
+        );
+        const paginationEl = document.getElementById(
+          `${serviceCategory}-pagination`
+        );
+
+        const allItems = serviceData[serviceCategory];
+        const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
+
+        modalStates[serviceCategory].items = allItems;
+        modalStates[serviceCategory].totalPages = totalPages;
+
+        renderPage(serviceCategory);
+      }
+
+      function renderPage(serviceCategory) {
+        const modalContentEl = document.getElementById(
+          `${serviceCategory}-content`
+        );
+        const paginationEl = document.getElementById(
+          `${serviceCategory}-pagination`
+        );
+
+        const { currentPage, totalPages, items } = modalStates[serviceCategory];
+        const start = currentPage * ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
+        const itemsToDisplay = items.slice(start, end);
+
+        // Render list items
+        modalContentEl.innerHTML = itemsToDisplay
+          .map((item) => `<li>${item}</li>`)
+          .join("");
+
+        // Render pagination controls
+        paginationEl.innerHTML = "";
+        if (totalPages > 1) {
+          const prevBtn = `<button onclick="changePage('${serviceCategory}', -1)" class="bg-gray-200 text-gray-800 font-medium px-4 py-2 rounded-full transition-colors ${
+            currentPage === 0 ? "opacity-50 cursor-not-allowed" : ""
+          }">Sebelumnya</button>`;
+          const nextBtn = `<button onclick="changePage('${serviceCategory}', 1)" class="bg-primary text-white font-medium px-4 py-2 rounded-full transition-colors ${
+            currentPage === totalPages - 1
+              ? "opacity-50 cursor-not-allowed"
+              : ""
+          }">Selanjutnya</button>`;
+          const pageIndicator = `<span class="text-sm font-semibold text-gray-600">Halaman ${
+            currentPage + 1
+          } dari ${totalPages}</span>`;
+
+          paginationEl.innerHTML = `<div class="w-1/3 text-left">${prevBtn}</div><div class="w-1/3 text-center">${pageIndicator}</div><div class="w-1/3 text-right">${nextBtn}</div>`;
+
+          if (currentPage === 0)
+            paginationEl.querySelector("button:first-child").disabled = true;
+          if (currentPage === totalPages - 1)
+            paginationEl.querySelector("button:last-child").disabled = true;
+        }
+      }
+
+      function changePage(serviceCategory, direction) {
+        const { currentPage, totalPages } = modalStates[serviceCategory];
+        let newPage = currentPage + direction;
+
+        if (newPage >= 0 && newPage < totalPages) {
+          modalStates[serviceCategory].currentPage = newPage;
+          renderPage(serviceCategory);
+        }
+      }
+      window.changePage = changePage;
+
+      function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          // Reset state for new modal opening
+          const serviceCategory = modalId.replace("-modal", "");
+          modalStates[serviceCategory].currentPage = 0;
+          renderModalContent(modalId);
+
+          modal.style.display = "flex";
+          setTimeout(() => {
+            modal.classList.add("show");
+          }, 10);
+        }
+      }
+      window.openModal = openModal;
+
+      function closeModal(event, modalId) {
+        const modal = document.getElementById(modalId);
+        if (
+          modal &&
+          (event.target === modal ||
+            event.target.closest(".close-button") ||
+            event.target.closest("button.btn-main"))
+        ) {
+          modal.classList.remove("show");
+          setTimeout(() => {
+            modal.style.display = "none";
+          }, 300);
+        }
+      }
+      window.closeModal = closeModal;
+
+      const dummyTestimonials = [
+        {
+          nama: "Dewi P.",
+          pesan:
+            "Layanan yang luar biasa, tim Dewangga Consulting sangat responsif dan solutif.",
+          date: "2024-01-01",
+          avatar: "https://placehold.co/40x40/DBE2EF/112D4E?text=D",
+          rating: 5,
+        },
+        {
+          nama: "Rahmat S.",
+          pesan:
+            "Solusi yang diberikan benar-benar inovatif dan sesuai dengan kebutuhan perusahaan kami.",
+          date: "2024-02-15",
+          avatar: "https://placehold.co/40x40/3F72AF/DBE2EF?text=R",
+          rating: 4,
+        },
+        {
+          nama: "Sinta B.",
+          pesan:
+            "Konsultasi yang sangat profesional. Kami merasa sangat terbantu dalam setiap langkahnya.",
+          date: "2024-03-20",
+          avatar: "https://placehold.co/40x40/112D4E/DBE2EF?text=S",
+          rating: 5,
+        },
+        {
+          nama: "Fauzi A.",
+          pesan:
+            "Timnya sangat ahli dan pengetahuannya sangat mendalam. Prosesnya berjalan lancar.",
+          date: "2024-04-10",
+          avatar: "https://placehold.co/40x40/DBE2EF/112D4E?text=F",
+          rating: 5,
+        },
+        {
+          nama: "Cahyo P.",
+          pesan: "Sangat direkomendasikan! Hasilnya melebihi ekspektasi kami.",
+          date: "2024-05-05",
+          avatar: "https://placehold.co/40x40/3F72AF/DBE2EF?text=C",
+          rating: 4,
+        },
+      ];
+
+      let currentTestimonialIndex = 0;
+      let sliderInterval;
+
+      function createStarIcons(rating) {
+        let stars = "";
+        for (let i = 0; i < 5; i++) {
+          if (i < rating) {
+            stars += `<svg class="w-5 h-5 fill-current text-yellow-400" viewBox="0 0 20 20"><path d="M10 15.27l-5.878 3.59 1.574-6.726L.67 7.01l6.812-.66L10 .27l2.518 6.08 6.812.66-5.026 4.124 1.574 6.726z"/></svg>`;
+          } else {
+            stars += `<svg class="w-5 h-5 fill-current text-gray-300" viewBox="0 0 20 20"><path d="M10 15.27l-5.878 3.59 1.574-6.726L.67 7.01l6.812-.66L10 .27l2.518 6.08 6.812.66-5.026 4.124 1.574 6.726z"/></svg>`;
+          }
+        }
+        return stars;
+      }
+
+      function renderTestimonial(testimonial) {
+        if (!testimonial) return "";
+        const starIcons = createStarIcons(testimonial.rating);
+        return `
+            <div class="bg-white rounded-xl shadow-lg p-6 w-full opacity-0 transition-opacity duration-1000 testimonial-item">
+                <div class="flex items-center mb-2">
+                    <img src="${testimonial.avatar}" alt="Avatar ${testimonial.nama}" class="rounded-full w-10 h-10 mr-4">
+                    <div>
+                        <div class="font-bold text-lg">${testimonial.nama}</div>
+                        <p class="text-sm text-gray-400">2 tahun lalu</p>
+                    </div>
+                </div>
+                <div class="flex mb-2">
+                    ${starIcons}
+                </div>
+                <p class="text-gray-600 italic leading-relaxed">"${testimonial.pesan}"</p>
+            </div>
+        `;
+      }
+
+      function showNextTestimonial() {
+        const testimonialsContainer = document.getElementById(
+          "testimonials-container"
+        );
+        if (dummyTestimonials.length === 0) {
+          testimonialsContainer.innerHTML =
+            '<p class="text-center text-gray-500">Belum ada testimoni yang masuk.</p>';
+          return;
+        }
+
+        testimonialsContainer.innerHTML = renderTestimonial(
+          dummyTestimonials[currentTestimonialIndex]
+        );
+        setTimeout(() => {
+          const currentItem =
+            testimonialsContainer.querySelector(".testimonial-item");
+          if (currentItem) {
+            currentItem.style.opacity = "1";
+          }
+        }, 10);
+
+        currentTestimonialIndex =
+          (currentTestimonialIndex + 1) % dummyTestimonials.length;
+      }
+
+      function startTestimonialSlider() {
+        if (sliderInterval) clearInterval(sliderInterval);
+        if (dummyTestimonials.length > 0) {
+          showNextTestimonial();
+          sliderInterval = setInterval(showNextTestimonial, 5000); // 5 seconds
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        startTestimonialSlider();
+
+        const scrollingContainer = document.querySelector(
+          ".scrolling-container"
+        );
+        const scrollContent = document.querySelector(".scroll-content");
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let animationStartTime;
+
+        scrollingContainer.addEventListener("mousedown", (e) => {
+          isDown = true;
+          scrollingContainer.classList.add("active");
+          scrollContent.classList.add("paused");
+          startX = e.pageX - scrollingContainer.offsetLeft;
+          scrollLeft = scrollingContainer.scrollLeft;
+          animationStartTime = null;
+        });
+
+        scrollingContainer.addEventListener("mouseleave", () => {
+          if (isDown) {
+            isDown = false;
+            scrollingContainer.classList.remove("active");
+            scrollContent.classList.remove("paused");
+          }
+        });
+
+        scrollingContainer.addEventListener("mouseup", () => {
+          isDown = false;
+          scrollingContainer.classList.remove("active");
+          scrollContent.classList.remove("paused");
+        });
+
+        scrollingContainer.addEventListener("mousemove", (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - scrollingContainer.offsetLeft;
+          const walk = (x - startX) * 2;
+          scrollingContainer.scrollLeft = scrollLeft - walk;
+        });
+
+        // IntersectionObserver for fade-in effects
+        const fadeInElements = document.querySelectorAll(
+          ".fade-in, .fade-in-up, .fade-in-left, .fade-in-right"
+        );
+
+        const observerOptions = {
+          root: null,
+          rootMargin: "0px",
+          threshold: 0.1,
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            } else {
+              entry.target.classList.remove("visible");
+            }
+          });
+        }, observerOptions);
+
+        fadeInElements.forEach((el) => {
+          observer.observe(el);
+        });
+      });
+    </script>
+  </body>
+</html>
