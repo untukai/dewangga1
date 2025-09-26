@@ -12,11 +12,14 @@
       rel="stylesheet"
     />
     <style>
+      /* Mengatur perilaku scroll agar mulus saat mengklik link */
+      html {
+        scroll-behavior: smooth;
+      }
       body {
         font-family: "Montserrat", sans-serif;
         background-color: #f7f9fc;
         color: #333;
-        scroll-behavior: smooth;
         overflow-x: hidden;
         display: flex;
         flex-direction: column;
@@ -250,6 +253,7 @@
         background-color: #dbe2ef;
       }
 
+      /* Efek Fade-In saat elemen muncul */
       .fade-in {
         opacity: 0;
         transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -267,6 +271,7 @@
         transform: translateX(50px);
       }
 
+      /* Kelas untuk mengaktifkan efek saat terlihat */
       .fade-in.visible,
       .fade-in-up.visible,
       .fade-in-left.visible,
@@ -275,6 +280,7 @@
         transform: translate(0, 0);
       }
 
+      /* Penundaan animasi untuk elemen yang berbeda */
       .card-delay-1 {
         transition-delay: 0.1s;
       }
@@ -449,11 +455,11 @@
 
       <!-- About Us Section -->
       <section id="about" class="py-16 bg-white">
-        <div class="container-main fade-in-up">
-          <h2 class="section-heading text-3xl md:text-4xl">Tentang Kami</h2>
+        <div class="container-main">
+          <h2 class="section-heading text-3xl md:text-4xl fade-in-up">Tentang Kami</h2>
           <div class="flex justify-center items-center mt-8">
             <div
-              class="card flex flex-col items-center text-center p-6 md:p-8 max-w-3xl"
+              class="card flex flex-col items-center text-center p-6 md:p-8 max-w-3xl fade-in-up"
             >
               <img
                 src="https://i.ibb.co.com/mVLFLcJv/image.png"
@@ -912,7 +918,7 @@
       <!-- Legalitas Section -->
       <section id="legalitas-section" class="py-16">
         <div class="container mx-auto px-4">
-          <h2 class="section-heading text-3xl md:text-4xl">Legalitas Perusahaan</h2>
+          <h2 class="section-heading text-3xl md:text-4xl fade-in-up">Legalitas Perusahaan</h2>
           <div class="space-y-12">
             <div
               class="max-w-xl mx-auto space-y-4 text-gray-600 mb-8 text-left"
@@ -957,7 +963,7 @@
               </p>
             </div>
 
-            <div class="mx-auto w-full max-w-3xl">
+            <div class="mx-auto w-full max-w-3xl fade-in-up">
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Puri+Teluk+Jambe+Blok+C7+No.+39,+Sirnabaya,+Telukjambe+Timur,+Karawang,+Jawa+Barat+41361"
                 target="_blank"
@@ -976,25 +982,25 @@
                 <img
                   src="https://i.ibb.co.com/0jYCjBFx/image.png"
                   alt="Akta Pendirian"
-                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover"
+                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover fade-in-up"
                   onclick="showImageModal(this.src)"
                 />
                 <img
                   src="https://i.ibb.co.com/tMZK1W8p/image.png"
                   alt="SK Kemenkumham"
-                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover"
+                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover fade-in-up"
                   onclick="showImageModal(this.src)"
                 />
                 <img
                   src="https://i.ibb.co.com/nMhxVdRX/image.png"
                   alt="Legal 1"
-                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover"
+                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover fade-in-up"
                   onclick="showImageModal(this.src)"
                 />
                 <img
                   src="https://i.ibb.co.com/xKhNkSRP/image.png"
                   alt="Legal 2"
-                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover"
+                  class="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer w-full h-auto object-cover fade-in-up"
                   onclick="showImageModal(this.src)"
                 />
               </div>
@@ -1005,56 +1011,56 @@
       <!-- Galeri Section -->
       <section id="gallery" class="py-16 bg-white">
         <div class="container-main">
-          <h2 class="section-heading text-3xl md:text-4xl">Galeri Dokumentasi</h2>
+          <h2 class="section-heading text-3xl md:text-4xl fade-in-up">Galeri Dokumentasi</h2>
           <div
             class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 mt-8"
           >
             <img
               src="https://i.ibb.co.com/234vk62k/image.png"
               alt="Dokumentasi 1"
-              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform fade-in-up"
               onclick="showImageModal(this.src)"
             />
             <img
               src="https://i.ibb.co.com/NgHwfhcT/image.png"
               alt="Dokumentasi 2"
-              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform fade-in-up"
               onclick="showImageModal(this.src)"
             />
             <img
               src="https://i.ibb.co.com/gMLY9J0J/image.png"
               alt="Dokumentasi 3"
-              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform fade-in-up"
               onclick="showImageModal(this.src)"
             />
             <img
               src="https://i.ibb.co.com/HTgJpDwy/image.png"
               alt="Dokumentasi 4"
-              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform fade-in-up"
               onclick="showImageModal(this.src)"
             />
             <img
               src="https://i.ibb.co.com/wrgVpW79/image.png"
               alt="Dokumentasi 5"
-              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform fade-in-up"
               onclick="showImageModal(this.src)"
             />
             <img
               src="https://i.ibb.co.com/zTn6qPdS/image.png"
               alt="Dokumentasi 6"
-              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform fade-in-up"
               onclick="showImageModal(this.src)"
             />
             <img
               src="https://i.ibb.co.com/PvbkLfh3/image.png"
               alt="Dokumentasi 7"
-              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform fade-in-up"
               onclick="showImageModal(this.src)"
             />
             <img
               src="https://i.ibb.co.com/xQj5YSF/image.png"
               alt="Dokumentasi 8"
-              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
+              class="w-full h-auto object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform fade-in-up"
               onclick="showImageModal(this.src)"
             />
           </div>
@@ -1064,7 +1070,7 @@
       <!-- Contact Section -->
       <section id="contact" class="py-16">
         <div class="container-main">
-          <h2 class="section-heading text-3xl md:text-4xl">Hubungi Kami</h2>
+          <h2 class="section-heading text-3xl md:text-4xl fade-in-up">Hubungi Kami</h2>
           <p
             class="text-center text-gray-600 max-w-2xl mx-auto mb-12 fade-in-up"
           >
@@ -1371,13 +1377,14 @@
     </div>
 
     <script>
-      // Functions for the website
+      // Fungsi untuk menoggel menu mobile
       function toggleMenu() {
         const mobileMenu = document.getElementById("mobile-menu");
         mobileMenu.classList.toggle("hidden");
       }
       window.toggleMenu = toggleMenu;
 
+      // Fungsi untuk menampilkan modal gambar
       function showImageModal(src) {
         const modal = document.getElementById("image-modal");
         const modalImg = document.getElementById("modal-image");
@@ -1387,6 +1394,7 @@
       }
       window.showImageModal = showImageModal;
 
+      // Fungsi untuk menutup modal gambar
       function closeImageModal() {
         const modal = document.getElementById("image-modal");
         modal.classList.add("hidden");
@@ -1394,7 +1402,7 @@
       }
       window.closeImageModal = closeImageModal;
 
-      // Data for the modals
+      // Data untuk modal layanan
       const serviceData = {
         consulting: [
           "Business Plan Development",
@@ -1725,7 +1733,7 @@
           scrollingContainer.scrollLeft = scrollLeft - walk;
         });
 
-        // IntersectionObserver for fade-in effects
+        // IntersectionObserver untuk efek fade-in saat menggulir
         const fadeInElements = document.querySelectorAll(
           ".fade-in, .fade-in-up, .fade-in-left, .fade-in-right"
         );
